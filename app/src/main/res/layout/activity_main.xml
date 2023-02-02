@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A8EAE4"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:text="Tip Calculator"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/billInput"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="179dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="75dp"
+        android:ems="10"
+        android:hint="Enter purchase price"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tittle" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="311dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="56dp"
+        android:max="100"
+        android:progress="15"
+        android:progressTint="#0B0A0A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/billInput" />
+
+    <TextView
+        android:id="@+id/tipPercent"
+        android:layout_width="131dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="24dp"
+        android:textAlignment="center"
+        android:textColor="#020202"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="70dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="#020202"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tipPercent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="146dp"
+        android:layout_height="186dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total"
+        app:layout_constraintVertical_bias="0.153">
+
+        <RadioButton
+            android:id="@+id/Button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:buttonTint="#009688"
+            android:checked="true"
+            android:text="Do Not Split Bill"
+            android:textAlignment="viewStart" />
+
+        <RadioButton
+            android:id="@+id/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:buttonTint="#009688"
+            android:text="Split Bill" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/splitText"
+        android:layout_width="101dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="16dp"
+        android:textAlignment="center"
+        android:textColor="#0B0A0A"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/partySize"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <EditText
+        android:id="@+id/partySize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="Party Size"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+</androidx.constraintlayout.widget.ConstraintLayout>
