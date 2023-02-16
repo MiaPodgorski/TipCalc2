@@ -11,12 +11,13 @@
         android:id="@+id/tittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:text="Tip Calculator"
+        android:layout_marginTop="40dp"
+        android:text="@string/tip_calculator"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,13 +26,17 @@
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="179dp"
         android:layout_height="48dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="44dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="Enter purchase price"
+        android:hint="@string/enter_purchase_price"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
+        android:text="0"
         android:textAlignment="center"
+        android:textColorHint="#00695C"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tittle" />
 
@@ -39,7 +44,7 @@
         android:id="@+id/seekBar"
         android:layout_width="311dp"
         android:layout_height="29dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         android:max="100"
         android:progress="15"
         android:progressTint="#0B0A0A"
@@ -51,7 +56,7 @@
         android:id="@+id/tipPercent"
         android:layout_width="131dp"
         android:layout_height="51dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:textAlignment="center"
         android:textColor="#020202"
         android:textSize="16sp"
@@ -74,8 +79,8 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="146dp"
-        android:layout_height="186dp"
+        android:layout_width="189dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -90,44 +95,60 @@
             android:layout_marginTop="9dp"
             android:buttonTint="#009688"
             android:checked="true"
-            android:text="Do Not Split Bill"
+            android:text="@string/do_not_split_bill"
             android:textAlignment="viewStart" />
 
         <RadioButton
             android:id="@+id/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="9dp"
             android:buttonTint="#009688"
-            android:text="Split Bill" />
+            android:text="@string/split_bill" />
     </RadioGroup>
 
     <TextView
         android:id="@+id/splitText"
-        android:layout_width="101dp"
-        android:layout_height="46dp"
+        android:layout_width="128dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="16dp"
         android:textAlignment="center"
         android:textColor="#0B0A0A"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
         app:layout_constraintStart_toEndOf="@+id/partySize"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.277" />
 
     <EditText
         android:id="@+id/partySize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="28dp"
         android:layout_marginBottom="16dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="Party Size"
+        android:hint="@string/party_size"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         android:textAlignment="center"
         android:textColor="#070707"
+        android:textColorHint="#00695C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.286"
+        tools:text="0" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partySize" />
 </androidx.constraintlayout.widget.ConstraintLayout>

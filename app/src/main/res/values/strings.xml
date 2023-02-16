@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Tip Calculator App</string>
+    <string name="party_size">Party Size</string>
+    <string name="split_bill">Split Bill</string>
+    <string name="do_not_split_bill">Do Not Split Bill</string>
+    <string name="enter_purchase_price">Enter purchase price</string>
+    <string name="tip_calculator">Tip Calculator</string>
 </resources>
