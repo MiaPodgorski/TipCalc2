@@ -26,8 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-
-
+        tipSeekbar = findViewById(R.id.tipSeekbar);
+        splitBill = findViewById(R.id.splitBill);
+        partyNumber = findViewById(R.id.partyNumber);
     }
 
 
@@ -59,5 +60,22 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putBoolean("split bill",split);
         editor.putInt("party size", size);
         editor.commit();
+    }
+
+
+    private void update(){
+        SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
+        int tip =sp.getInt("tip default",15);
+        tipSeekbar.setText(tip+"");
+        boolean b = sp.getBoolean("split bill", false);
+        splitBill.setChecked(b);
+        int size = sp.getInt("party size", 2);
+        partyNumber.setText(size+"");
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        update();
     }
 }

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     EditText partySize;
     TextView splitText;
     Button settingsButton;
+
+
+    private  boolean split;
+    private int size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                calculateBill();
+                calcSplitBill();
+
                 String bill = billInput.getText().toString();
                 double Bill = Double.parseDouble(bill);
                 double tip = seekBar.getProgress();
-                tipPercent.setText("tip " + i + "%" + "or $" + (Bill * (tip / 100)));
-                total.setText("total $" + (Bill + (Bill * (tip / 100))));
-                String party = partySize.getText().toString();
-                double Party = Double.parseDouble(party);
-                splitText.setText("$" + (Bill + (Bill * (tip / 100))) / Party + " per person");
+                double dollarTip =(Bill * (tip / 100));
+                tipPercent.setText("tip"+i+"% or $"+String.format("%.2f",dollarTip) );
 
             }
 
@@ -80,35 +85,44 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_DONE) {
+                    calculateBill();
+                    calcSplitBill();
                     String bill = billInput.getText().toString();
                     double Bill = Double.parseDouble(bill);
                     double tip = seekBar.getProgress();
-                    //problem with sting part of this "tip" "%"
-                    total.setText("total $" + (Bill + (Bill * (tip / 100))));
+                    double dollarTip =(Bill * (tip / 100));
+                    tipPercent.setText("tip "+i+"% or $"+String.format("%.2f",dollarTip) );
                 }
                 return false;
             }
         });
 
-        //when split bill selected divide total by party size
-        // (splitText.getText().toString().equals("")) checking if empty did not figure out
+        partySize.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i==EditorInfo.IME_ACTION_DONE && Button.isChecked()){
+                    calcSplitBill();
+                }
+                return false;
+            }
+        });
+
+
+
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.Button) {
                     partySize.setHint("enter party size");
-                    String party = partySize.getText().toString();
-                    double Party = Double.parseDouble(party);
-                    String bill = billInput.getText().toString();
-                    double Bill = Double.parseDouble(bill);
-                    double tip = seekBar.getProgress();
-                    splitText.setText("$" + (Bill + (Bill * (tip / 100))) / Party + " per person");
+                    calculateBill();
+                    calcSplitBill();
+
                 } else if (i == R.id.Button2) {
                     partySize.setHint("1");
-                    String bill = billInput.getText().toString();
-                    double Bill = Double.parseDouble(bill);
-                    double tip = seekBar.getProgress();
-                    splitText.setText((Bill + (Bill * (tip / 100))) + " per person");
+                    partySize.setText("1");
+                    calculateBill();
+                    calcSplitBill();
                 }
             }
         });
@@ -122,15 +136,68 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+        private void calculateBill() {
+            try {
+                String bill = billInput.getText().toString();
+                double Bill = Double.parseDouble(bill);
+                double tip = seekBar.getProgress();
+                double calc = (Bill + (Bill * (tip / 100)));
+                total.setText("total $" + String.format("%.2f",calc));
+            } catch(NumberFormatException ex) {
+                total.setText("fill out all boxes");
+            }
+        }
+
+        private void calcSplitBill() {
+            try {
+                String party = partySize.getText().toString();
+                double Party = Double.parseDouble(party);
+                String bill = billInput.getText().toString();
+                double Bill = Double.parseDouble(bill);
+                double tip = seekBar.getProgress();
+                double calc = ((Bill + (Bill * (tip / 100))) / Party);
+                splitText.setText("$" + String.format("%.2f",calc) + " per person");
+            } catch (NumberFormatException ex) {
+                total.setText("fill out all boxes");
+            }
+        }
+
+
+
+    private void updateSharedPreference(){
+          //Default tip setting
+        int tip =seekBar.getProgress();
+
+
+         //default split bill
+        if (Button.isChecked()){
+            split = true;
+        }else if(Button2.isChecked()){
+            split =false;
+        }
+
+    //default party size
+        String number = partySize.getText().toString();
+        size = Integer.parseInt(number);
+
+        SharedPreferences sp= getSharedPreferences("shared",MODE_PRIVATE);
+        SharedPreferences.Editor editor= sp.edit();
+        editor.putInt("tip default",tip);
+        editor.putBoolean("split bill",split);
+        editor.putInt("party size", size);
+        editor.commit();
+    }
+
+
         private void updateTip(){
             SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
            int tip =sp.getInt("tip default",15);
            seekBar.setProgress(tip);
-           boolean b = sp.getBoolean("button", false);
+           boolean b = sp.getBoolean("split bill", false);
            Button.setChecked(b);
            Button2.setChecked(!b);  //must set other button too
             int p = sp.getInt("party size", 1);
-            partySize.setText(p);
+            partySize.setText(p+"");
 
         }
         @Override
